@@ -13,9 +13,9 @@ class Solution {
         }
 
         Map<Integer, Integer> visited = new HashMap();
-        Map<Integer, Set<Integer>> powerGrids = new HashMap();
+        Map<Integer, TreeSet<Integer>> powerGrids = new HashMap();
         for (int i = 1; i <= c; i++) {
-            Set<Integer> temp = new TreeSet();
+            TreeSet<Integer> temp = new TreeSet();
             if (!visited.containsKey(i)) {
                 dfs(i, temp, map, visited, i);
             }
@@ -40,14 +40,8 @@ class Solution {
                 continue;
             }
 
-            int temp = -1;
-            Set<Integer> s = powerGrids.get(visited.get(node));
-            for (int k : s) {
-                if (online[k] == 1) {
-                    temp = k;
-                    break;
-                }
-            }
+            TreeSet<Integer> s = powerGrids.get(visited.get(node));
+            int temp = s.isEmpty() ? -1 : s.first();
             res.add(temp);
         }
 
